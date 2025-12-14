@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogue Mobilité Internationale - Mission Locale Pays Basque</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-orange: #f39200;
+            --color-vert: #95c11f;
+            --color-bleu: #2897d5;
+            --color-rose: #d60b52;
+            --color-violet: #a3195b;
+            --color-rouge: #9f3d3f;
+            --color-noir: #171718;
+            --color-white: #FFFFFF;
+            --color-grey-light: #F5F5F5;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--color-white);
+            color: var(--color-noir);
+            overflow-x: hidden;
+        }
+
+        /* Formes géométriques d'arrière-plan */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -150px;
+            right: -150px;
+            width: 400px;
+            height: 400px;
+            background: var(--color-vert);
+            border-radius: 50%;
+            z-index: 0;
+            opacity: 0.08;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -200px;
+            left: -200px;
+            width: 500px;
+            height: 500px;
+            background: var(--color-bleu);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            z-index: 0;
+            opacity: 0.06;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* HEADER */
+        .header {
+            background: var(--color-noir);
+            color: var(--color-white);
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: 100px;
+            width: 200px;
+            height: 200px;
+            background: var(--color-rose);
+            opacity: 0.3;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: 80px;
+            width: 0;
+            height: 0;
+            border-left: 120px solid transparent;
+            border-right: 120px solid transparent;
+            border-bottom: 200px solid var(--color-orange);
+            opacity: 0.25;
+        }
+
+        .logo {
+            width: 180px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            font-weight: 400;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* FILTRES */
+        .filters-section {
+            background: var(--color-grey-light);
+            padding: 35px 40px;
+            border-left: 6px solid var(--color-bleu);
+        }
+
+        .filters-title {
+            font-size: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            color: var(--color-rose);
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .filter-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            width: 100%;
+            padding: 12px;
+            border: 3px solid var(--color-noir);
+            background: var(--color-white);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: var(--color-rose);
+            transform: translateY(-2px);
+        }
+
+        .btn-reset {
+            padding: 12px 24px;
+            background: var(--color-noir);
+            color: var(--color-white);
+            border: 3px solid var(--color-noir);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            align-self: end;
+        }
+
+        .btn-reset:hover {
+            background: var(--color-white);
+            color: var(--color-noir);
+            transform: translate(3px, -3px);
+            box-shadow: -4px 4px 0 var(--color-orange);
+        }
+
+        /* SECTIONS */
+        .offers-section {
+            padding: 40px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid var(--color-noir);
+        }
+
+        .section-icon {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            position: relative;
+        }
+
+        .section-icon::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 3px solid var(--color-noir);
+            transform: rotate(45deg);
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            font-weight: 400;
+            margin-top: 5px;
+            opacity: 0.8;
+        }
+
+        /* GRILLE D'OFFRES */
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .offer-card {
+            background: var(--color-white);
+            border: 3px solid var(--color-noir);
+            overflow: hidden;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .offer-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 80px;
+            height: 80px;
+            background: var(--color-orange);
+            clip-path: polygon(100% 0, 0 0, 100% 100%);
+            opacity: 0.15;
+        }
+
+        .offer-card:hover {
+            transform: translate(4px, -4px);
+            box-shadow: -6px 6px 0 var(--color-noir);
+        }
+
+        .offer-header {
+            padding: 20px;
+            position: relative;
+        }
+
+        .offer-country {
+            display: inline-block;
+            padding: 6px 14px;
+            background: var(--color-noir);
+            color: var(--color-white);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .offer-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .offer-location {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-rose);
+            margin-bottom: 12px;
+        }
+
+        .offer-body {
+            padding: 0 20px 20px;
+        }
+
+        .offer-mission {
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .offer-details {
+            display: grid;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .detail-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--color-grey-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .offer-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            padding: 4px 10px;
+            background: var(--color-grey-light);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tag.europe {
+            background: var(--color-bleu);
+            color: var(--color-white);
+        }
+
+        .tag.monde {
+            background: var(--color-vert);
+            color: var(--color-white);
+        }
+
+        .tag.service-civique {
+            background: var(--color-violet);
+            color: var(--color-white);
+        }
+
+        .tag.ces {
+            background: var(--color-orange);
+            color: var(--color-white);
+        }
+
+        .btn-details {
+            width: 100%;
+            padding: 12px;
+            background: var(--color-rose);
+            color: var(--color-white);
+            border: 3px solid var(--color-noir);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        .btn-details:hover {
+            background: var(--color-noir);
+            color: var(--color-white);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            font-size: 18px;
+            color: #999;
+        }
+
+        .urgent-badge {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 8px;
+            background: rgba(159, 61, 63, 0.1);
+            color: rgb(159, 61, 63);
+            border: 1px solid rgba(159, 61, 63, 0.3);
+            border-radius: 3px;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+            }
+
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .offers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- HEADER -->
+        <div class="header">
+            <img src="https://static.wixstatic.com/media/dd5dab_47743b1c86024865ba19e623a3db327f~mv2.avif" alt="Mission Locale Pays Basque" class="logo">
+            <h1>Catalogue Mobilité</h1>
+            <p class="subtitle">Offres de mobilité internationale - Outil conseiller</p>
+        </div>
+
+        <!-- FILTRES -->
+        <div class="filters-section">
+            <div class="filters-title">🔍 Filtrer les offres</div>
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label>Pays</label>
+                    <select id="filterCountry" onchange="applyFilters()">
+                        <option value="">Tous les pays</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Source</label>
+                    <select id="filterSource" onchange="applyFilters()">
+                        <option value="">Toutes sources</option>
+                        <option value="Pistes Solidaires">Pistes Solidaires</option>
+                        <option value="Eurasia Net">Eurasia Net</option>
+                        <option value="Youth Europa">Youth Europa</option>
+                        <option value="Programmes EU">Programmes EU</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Type de programme</label>
+                    <select id="filterType" onchange="applyFilters()">
+                        <option value="">Tous les programmes</option>
+                        <option value="Service Civique">Service Civique</option>
+                        <option value="Corps Européen de Solidarité">Corps Européen de Solidarité</option>
+                        <option value="Erasmus+">Erasmus+</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Domaine</label>
+                    <select id="filterDomain" onchange="applyFilters()">
+                        <option value="">Tous domaines</option>
+                        <option value="Education">Éducation</option>
+                        <option value="Social">Social</option>
+                        <option value="Environnement">Environnement</option>
+                        <option value="Culture">Culture</option>
+                        <option value="Sport">Sport</option>
+                    </select>
+                </div>
+
+                <button class="btn-reset" onclick="resetFilters()">Réinitialiser</button>
+            </div>
+        </div>
+
+        <!-- TOUTES LES OFFRES -->
+        <div class="offers-section">
+            <div class="section-header">
+                <div class="section-icon">🌍</div>
+                <div>
+                    <h2 class="section-title">Toutes les offres</h2>
+                    <p class="section-subtitle">45 opportunités de mobilité internationale</p>
+                </div>
+            </div>
+            <div class="offers-grid" id="allOffers"></div>
+        </div>
+
+    </div>
+
+    <script>
+        console.log('Script loading...');
+        
+        // BASE COMPLÈTE DES OFFRES
+        const allOffersData = [
+            // PISTES SOLIDAIRES
+            {country:"Espagne",city:"Lorca",title:"Jeunesse & Inclusion",mission:"Accompagnement de jeunes en situation de vulnérabilité, animation socio-éducative",duration:"6 semaines",dates:"01/01/2026-14/02/2026",type:"Corps Européen de Solidarité",domain:"Social",spots:"Plusieurs postes",link:"https://www.wanago.world/offre/jeunesse-inclusion/",source:"Pistes Solidaires"},
+            {country:"Moldavie",city:"Chisinau",title:"Inclusion pour les réfugiés",mission:"Soutien aux réfugiés, activités d'intégration sociale et culturelle",duration:"6 mois",dates:"01/01/2026-30/06/2026",type:"Corps Européen de Solidarité",domain:"Social",spots:"1 poste",link:"https://www.wanago.world/offre/inclusion-pour-les-refugies/",source:"Pistes Solidaires"},
+            {country:"Moldavie",city:"Chisinau",title:"Moldova for Peace - Logistique",mission:"Coordination logistique, gestion de matériel humanitaire",duration:"6 mois",dates:"01/01/2026-30/06/2026",type:"Corps Européen de Solidarité",domain:"Social",spots:"1 poste",link:"https://www.wanago.world/offre/projet-moldova-for-peace/",source:"Pistes Solidaires"},
+            {country:"Moldavie",city:"Chisinau",title:"Moldova for Peace - Communautaire",mission:"Animation communautaire, activités sociales et culturelles",duration:"6 mois",dates:"01/01/2026-30/06/2026",type:"Corps Européen de Solidarité",domain:"Social",spots:"1 poste",link:"https://www.wanago.world/offre/projet-moldova-for-peace-2/",source:"Pistes Solidaires"},
+            {country:"Espagne",city:"Bilbao",title:"Animation et éducation non-formelle",mission:"Animation jeunesse, ateliers créatifs, éducation populaire",duration:"6 mois",dates:"15/01/2026-15/07/2026",type:"Corps Européen de Solidarité",domain:"Education",spots:"1 poste",link:"https://www.wanago.world/offre/animation-et-education-non-formelle/",source:"Pistes Solidaires"},
+            {country:"Danemark",city:"Ringkobing",title:"Jardin partagé et Permaculture",mission:"Jardinage écologique, permaculture, sensibilisation environnementale",duration:"9 mois",dates:"01/03/2026-12/12/2026",type:"Corps Européen de Solidarité",domain:"Environnement",spots:"1 poste",link:"https://www.wanago.world/offre/jardin-partage-et-permaculture/",source:"Pistes Solidaires"},
+            {country:"Italie",city:"Moniga del Garda",title:"Jeunesse et Culture",mission:"Organisation d'événements culturels, animation jeunesse",duration:"2 mois",dates:"11/05/2026-10/07/2026",type:"Corps Européen de Solidarité",domain:"Culture",spots:"1 poste",link:"https://www.wanago.world/offre/jeunesse-et-culture/",source:"Pistes Solidaires"},
+            
+            // EURASIA NET
+            {country:"Arménie",city:"Erevan",title:"Art & Promotion francophonie",mission:"Promotion culturelle, tourisme, préservation du patrimoine",duration:"6-12 mois",dates:"Dès que possible",type:"Service Civique",domain:"Culture",spots:"1 poste (PACA)",link:"https://eurasianet.eu/wp-content/uploads/2025/09/AAC-Armenie.pdf",source:"Eurasia Net"},
+            {country:"Italie",city:"Edulife",title:"Education pour tous",mission:"Soutien scolaire, accompagnement éducatif",duration:"12 mois",dates:"Juillet/Août 2025",type:"Service Civique",domain:"Education",spots:"1 poste",link:"https://eurasianet.eu/wp-content/uploads/2025/08/Italie-Edulife.pdf",source:"Eurasia Net"},
+            {country:"Sri Lanka",city:"Colombo",title:"Alliance Française de Colombo",mission:"Animation culturelle, enseignement du français",duration:"9 mois",dates:"Avril 2026",type:"Service Civique",domain:"Education",spots:"1 poste",link:"https://eurasianet.eu/wp-content/uploads/2025/11/Sri-Lanka-Colombo-1.pdf",source:"Eurasia Net"},
+            {country:"Indonésie",city:"Java Central",title:"Dejavato",mission:"Développement communautaire, éducation",duration:"6 mois",dates:"À définir",type:"Service Civique",domain:"Education",spots:"1 poste",link:"https://eurasianet.eu/wp-content/uploads/2025/11/Indonesie-Java-Central-Dejavato-1.pdf",source:"Eurasia Net"},
+            {country:"Arménie",city:"Erevan",title:"FIOH - Culture et loisirs",mission:"Animation culturelle, organisation d'événements",duration:"6-10 mois",dates:"Mars 2026",type:"Service Civique",domain:"Culture",spots:"2 postes (BDR)",link:"https://eurasianet.eu/wp-content/uploads/2025/12/Armenie-Erevan-FIOH.pdf",source:"Eurasia Net"},
+            {country:"Italie",city:"Vérone",title:"Le Fate - Education",mission:"Éducation pour tous, accompagnement scolaire",duration:"8 mois",dates:"Sept-Oct 2025",type:"Service Civique",domain:"Education",spots:"2 postes",link:"https://eurasianet.eu/wp-content/uploads/2025/08/Italie-Le-Fate-4.pdf",source:"Eurasia Net"},
+            {country:"Arménie",city:"Gyumri",title:"Youth Initiative Centre",mission:"Animation jeunesse, éducation non-formelle",duration:"12 mois",dates:"Fin janvier 2026",type:"Service Civique",domain:"Education",spots:"2 postes (BDR)",link:"https://eurasianet.eu/wp-content/uploads/2025/11/Armenie-Gyumri-YIC.pdf",source:"Eurasia Net"},
+            {country:"Finlande",city:"Kaurisniemi",title:"Protection animale",mission:"Refuge pour animaux, sensibilisation environnementale",duration:"8 mois",dates:"Janvier 2026",type:"Service Civique",domain:"Environnement",spots:"1 poste",link:"https://eurasianet.eu/wp-content/uploads/2025/11/General.pdf",source:"Eurasia Net"},
+            {country:"Inde",city:"Jaipur",title:"Tushita Foundation",mission:"Éducation pour enfants défavorisés",duration:"6-10 mois",dates:"Février 2026",type:"Service Civique",domain:"Education",spots:"2 postes (BDR)",link:"https://eurasianet.eu/wp-content/uploads/2025/12/Inde-Jaipur-Tushita-Foundation.pdf",source:"Eurasia Net"},
+            {country:"Inde",city:"Pondichéry",title:"ADECOM Network",mission:"Éducation, développement communautaire",duration:"6 mois",dates:"Février 2026",type:"Service Civique",domain:"Education",spots:"2 postes (BDR)",link:"https://eurasianet.eu/wp-content/uploads/2025/12/Inde-Pondichery-ADECOM-Network.pdf",source:"Eurasia Net"},
+            {country:"Philippines",city:"Manille",title:"Alliance Française de Manille",mission:"Animation culturelle française, enseignement",duration:"12 mois",dates:"Fin janvier 2026",type:"Service Civique",domain:"Culture",spots:"1 poste",link:"https://eurasianet.eu/wp-content/uploads/2025/12/Philippines-Manille-AF-Manille.pdf",source:"Eurasia Net"},
+            {country:"Inde",city:"Delhi",title:"Alliance Française de Delhi",mission:"Enseignement du français, animation culturelle",duration:"6 mois",dates:"Février 2026",type:"Service Civique",domain:"Education",spots:"1-2 postes",link:"https://eurasianet.eu/wp-content/uploads/2025/12/Inde-Delhi-AF-Delhi.pdf",source:"Eurasia Net"},
+            {country:"Sri Lanka",city:"Matara",title:"Alliance Française de Matara",mission:"Culture et loisirs, francophonie",duration:"6 mois",dates:"Février 2026",type:"Service Civique",domain:"Culture",spots:"2 postes",link:"https://eurasianet.eu/wp-content/uploads/2025/12/Sri-Lanka-Matara-AF-Matara.pdf",source:"Eurasia Net"},
+            {country:"Maldives",city:"Malé",title:"Alliance Française de Malé",mission:"Animation culturelle, promotion francophonie",duration:"6 mois",dates:"Février 2026",type:"Service Civique",domain:"Culture",spots:"1 poste",link:"https://eurasianet.eu/wp-content/uploads/2025/12/Maldives-Male-AF-Male.pdf",source:"Eurasia Net"},
+            
+            // YOUTH EUROPA
+            {country:"Italie",city:"Arese",title:"Refuge pour chiens et animaux",mission:"Soins quotidiens aux chiens (nettoyage, nourriture, promenades) et soutien aux activités du refuge",duration:"6 mois",dates:"26/01/2026-31/07/2026",type:"Corps Européen de Solidarité",domain:"Environnement",spots:"Variable",urgent:true,deadline:"19/12/2025",link:"https://youth.europa.eu/go-abroad/volunteering/opportunities_en",source:"Youth Europa"},
+            {country:"Italie",city:"Massaciuccoli",title:"Conservation Nature & Biodiversité",mission:"Activités de conservation dans une zone protégée, entretien des espaces naturels et sensibilisation",duration:"4 mois",dates:"26/01/2026-31/05/2026",type:"Corps Européen de Solidarité",domain:"Environnement",spots:"Variable",urgent:true,deadline:"19/12/2025",link:"https://youth.europa.eu/go-abroad/volunteering/opportunities_en",source:"Youth Europa"},
+            {country:"Moldavie",city:"Chișinău",title:"Protection animaux errants",mission:"Aide dans un refuge pour chiens errants : nourrissage, soins vétérinaires de base, socialisation",duration:"6-12 mois",dates:"2026-2027 (Flexible)",type:"Corps Européen de Solidarité",domain:"Environnement",spots:"Variable",link:"https://youth.europa.eu/go-abroad/volunteering/opportunities_en",source:"Youth Europa"},
+            {country:"Grèce",city:"Kavala",title:"Horse Lover",mission:"Soins aux chevaux, entretien des écuries et assistance lors des sessions d'équitation thérapeutique",duration:"Variable",dates:"Mars 2025-Déc 2027",type:"Corps Européen de Solidarité",domain:"Environnement",spots:"Variable",link:"https://youth.europa.eu/go-abroad/volunteering/opportunities_en",source:"Youth Europa"},
+            {country:"Roumanie",city:"Cogealac",title:"Re-Garden: Construire & Cultiver",mission:"Développement d'un jardin communautaire, ateliers écologiques avec les enfants et aménagement",duration:"10 mois",dates:"01/02/2026-30/11/2026",type:"Corps Européen de Solidarité",domain:"Environnement",spots:"Variable",link:"https://youth.europa.eu/go-abroad/volunteering/opportunities_en",source:"Youth Europa"},
+            {country:"Colombie",city:"Santander de Quilichao",title:"Assistant de projet - Alianza Colombia",mission:"Appui à la gestion de projets humanitaires, focus sur l'égalité des genres et la paix",duration:"8 mois",dates:"15/01/2026-30/09/2026",type:"Volontariat International",domain:"Social",spots:"Variable",link:"https://youth.europa.eu/go-abroad/volunteering/opportunities_en",source:"Youth Europa"},
+            {country:"Belgique",city:"Etterbeek",title:"ATD Quart Monde - Dignité",mission:"Soutien aux actions de lutte contre la pauvreté, organisation d'événements et vie communautaire",duration:"7 mois",dates:"15/01/2026-31/08/2026",type:"Corps Européen de Solidarité",domain:"Social",spots:"Variable",urgent:true,deadline:"15/12/2025",link:"https://youth.europa.eu/go-abroad/volunteering/opportunities_en",source:"Youth Europa"},
+            {country:"Italie",city:"Palerme",title:"8 mois de volontariat social",mission:"Activités d'inclusion sociale, ateliers interculturels et soutien aux personnes vulnérables",duration:"8 mois",dates:"Jusqu'en Janvier 2026",type:"Corps Européen de Solidarité",domain:"Social",spots:"Variable",link:"https://youth.europa.eu/go-abroad/volunteering/opportunities_en",source:"Youth Europa"},
+            {country:"France",city:"Laguépie",title:"Volontariat court terme à Citrus",mission:"Participation à la vie collective d'un lieu d'accueil international, chantiers participatifs",duration:"8 semaines",dates:"Mars 2025-Nov 2025",type:"Corps Européen de Solidarité",domain:"Social",spots:"Variable",link:"https://youth.europa.eu/go-abroad/volunteering/opportunities_en",source:"Youth Europa"},
+            {country:"France",city:"Arques",title:"Promouvoir valeurs interculturelles",mission:"Promotion de la mobilité internationale et animations interculturelles auprès des jeunes",duration:"9 mois",dates:"Sept 2025-Juin 2026",type:"Corps Européen de Solidarité",domain:"Social",spots:"Variable",link:"https://youth.europa.eu/go-abroad/volunteering/opportunities_en",source:"Youth Europa"},
+            {country:"Italie",city:"Milan",title:"Centre jeunesse IRDA",mission:"Animation d'activités périscolaires, aide aux devoirs et organisation de jeux pour les jeunes",duration:"6 mois",dates:"19/01/2026-31/07/2026",type:"Corps Européen de Solidarité",domain:"Education",spots:"Variable",urgent:true,deadline:"19/12/2025",link:"https://youth.europa.eu/go-abroad/volunteering/opportunities_en",source:"Youth Europa"},
+            {country:"Italie",city:"Catane",title:"Programme Après-école",mission:"Soutien scolaire et animation d'activités récréatives pour les enfants après l'école",duration:"6 mois",dates:"25/01/2026-25/07/2026",type:"Corps Européen de Solidarité",domain:"Education",spots:"Variable",urgent:true,deadline:"30/12/2025",link:"https://youth.europa.eu/go-abroad/volunteering/opportunities_en",source:"Youth Europa"},
+            {country:"Slovénie",city:"Ljubljana",title:"Animateur réseaux sociaux jeunesse",mission:"Création de contenu digital pour promouvoir les activités jeunesse, documentation photo/vidéo",duration:"12 mois",dates:"12/01/2026-31/12/2026",type:"Corps Européen de Solidarité",domain:"Education",spots:"Variable",urgent:true,deadline:"24/12/2025",link:"https://youth.europa.eu/go-abroad/volunteering/opportunities_en",source:"Youth Europa"},
+            {country:"Espagne",city:"Valence",title:"Communautés d'apprentissage",mission:"Soutien dans une école communautaire, aide en classe et facilitation d'activités inclusives",duration:"12 mois",dates:"Juil 2025-Juil 2026",type:"Corps Européen de Solidarité",domain:"Education",spots:"Variable",link:"https://youth.europa.eu/go-abroad/volunteering/opportunities_en",source:"Youth Europa"},
+            {country:"Roumanie",city:"Timisoara",title:"Beyond Borders",mission:"Organisation d'activités pour la jeunesse locale, facilitation d'ateliers et promotion solidarité",duration:"12 mois",dates:"19/01/2026-19/01/2027",type:"Corps Européen de Solidarité",domain:"Education",spots:"Variable",link:"https://youth.europa.eu/go-abroad/volunteering/opportunities_en",source:"Youth Europa"},
+            {country:"Allemagne",city:"Berlin",title:"Design graphique & Communication",mission:"Création de supports visuels pour l'ONG, gestion du site web et des réseaux sociaux",duration:"11 mois",dates:"Juin 2025-Mai 2026",type:"Corps Européen de Solidarité",domain:"Culture",spots:"Variable",link:"https://youth.europa.eu/go-abroad/volunteering/opportunities_en",source:"Youth Europa"},
+            {country:"Italie",city:"Recanati",title:"ESC IN ASK: Art, Social, Kitchen",mission:"Gestion d'un espace culturel, organisation d'événements artistiques et ateliers de cuisine sociale",duration:"10 mois",dates:"09/01/2026-30/10/2026",type:"Corps Européen de Solidarité",domain:"Culture",spots:"Variable",link:"https://youth.europa.eu/go-abroad/volunteering/opportunities_en",source:"Youth Europa"},
+            {country:"Turquie",city:"Adana",title:"Athlétisme pour la Solidarité",mission:"Organisation d'activités sportives (athlétisme) pour les jeunes locaux, promotion sport santé",duration:"2 mois",dates:"15/02/2026-15/04/2026",type:"Corps Européen de Solidarité",domain:"Sport",spots:"Variable",urgent:true,deadline:"31/12/2025",link:"https://youth.europa.eu/go-abroad/volunteering/opportunities_en",source:"Youth Europa"},
+            {country:"Turquie",city:"Ankara",title:"Volontariat avec S&G",mission:"Tâches administratives, gestion de projets, organisation d'événements sportifs et culturels",duration:"Variable",dates:"Déc 2025-Déc 2027",type:"Corps Européen de Solidarité",domain:"Sport",spots:"Variable",link:"https://youth.europa.eu/go-abroad/volunteering/opportunities_en",source:"Youth Europa"},
+            {country:"Espagne",city:"Plasencia",title:"Euexia: Sport & Handicap",mission:"Utilisation du sport comme outil d'inclusion pour les personnes en situation de handicap",duration:"9 mois",dates:"Jan 2026-Oct 2026",type:"Corps Européen de Solidarité",domain:"Sport",spots:"Variable",link:"https://youth.europa.eu/go-abroad/volunteering/opportunities_en",source:"Youth Europa"},
+            
+            // PROGRAMMES GÉNÉRIQUES
+            {country:"Allemagne",city:"Diverses villes",title:"Erasmus+ Jeunes",mission:"Échanges de jeunes, projets participatifs, mobilité courte durée",duration:"1-3 semaines",dates:"Toute l'année",type:"Erasmus+",domain:"Education",spots:"Variable",link:"https://www.erasmusplus-jeunesse.fr/",source:"Programmes EU"},
+            {country:"Portugal",city:"Lisbonne",title:"CES Éducation interculturelle",mission:"Animation avec enfants migrants, éducation interculturelle",duration:"6-12 mois",dates:"Toute l'année",type:"Corps Européen de Solidarité",domain:"Social",spots:"Variable",link:"https://europa.eu/youth/solidarity_fr",source:"Programmes EU"},
+            {country:"Espagne",city:"Barcelone",title:"Stage Erasmus+ Pro",mission:"Stage professionnel dans différents secteurs",duration:"2-6 mois",dates:"Toute l'année",type:"Erasmus+",domain:"Education",spots:"Variable",link:"https://generation.erasmusplus.fr/",source:"Programmes EU"},
+            {country:"Italie",city:"Rome",title:"CES Environnement urbain",mission:"Jardins partagés, sensibilisation écologique en ville",duration:"6-12 mois",dates:"Toute l'année",type:"Corps Européen de Solidarité",domain:"Environnement",spots:"Variable",link:"https://europa.eu/youth/solidarity_fr",source:"Programmes EU"}
+        ];
+
+        console.log('Offres chargées:', allOffersData.length);
+
+        // Remplir le filtre pays
+        const countries = [...new Set(allOffersData.map(o => o.country))].sort();
+        const countrySelect = document.getElementById('filterCountry');
+        countries.forEach(country => {
+            const option = document.createElement('option');
+            option.value = country;
+            option.textContent = country;
+            countrySelect.appendChild(option);
+        });
+
+        function renderOffers(offers) {
+            console.log('Rendering', offers.length, 'offers');
+            const container = document.getElementById('allOffers');
+            
+            if (offers.length === 0) {
+                container.innerHTML = '<div class="no-results">Aucune offre ne correspond aux filtres sélectionnés</div>';
+                return;
+            }
+
+            container.innerHTML = offers.map(offer => `
+                <div class="offer-card">
+                    <div class="offer-header">
+                        <div style="display:flex;justify-content:space-between;width:100%;">
+                            <div class="offer-country">${offer.country}</div>
+                            ${offer.urgent ? '<span class="urgent-badge">⚠️ Urgent</span>' : ''}
+                        </div>
+                        <h3 class="offer-title">${offer.title}</h3>
+                        <div class="offer-location">📍 ${offer.city}</div>
+                    </div>
+                    <div class="offer-body">
+                        <p class="offer-mission">${offer.mission}</p>
+                        <div class="offer-details">
+                            <div class="detail-item">
+                                <div class="detail-icon">⏱️</div>
+                                <span>${offer.duration}</span>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon">📅</div>
+                                <span>${offer.dates}</span>
+                            </div>
+                            ${offer.deadline ? `<div class="detail-item"><div class="detail-icon">⏰</div><span style="color:${offer.urgent ? 'rgb(159,61,63)' : 'inherit'};font-weight:${offer.urgent ? '600' : '400'}">Deadline: ${offer.deadline}</span></div>` : ''}
+                            <div class="detail-item">
+                                <div class="detail-icon">👥</div>
+                                <span>${offer.spots}</span>
+                            </div>
+                        </div>
+                        <div class="offer-tags">
+                            <span class="tag ${offer.type.includes('Européen') ? 'ces' : offer.type.includes('Service') ? 'service-civique' : 'europe'}">${offer.type}</span>
+                            <span class="tag">${offer.domain}</span>
+                            <span class="tag" style="background:#f5f5f5;color:#666;font-size:10px">${offer.source}</span>
+                        </div>
+                        <a href="${offer.link}" target="_blank" class="btn-details">Plus d'infos</a>
+                    </div>
+                </div>
+            `).join('');
+            
+            console.log('Rendered successfully!');
+        }
+
+        function applyFilters() {
+            const country = document.getElementById('filterCountry').value;
+            const source = document.getElementById('filterSource').value;
+            const type = document.getElementById('filterType').value;
+            const domain = document.getElementById('filterDomain').value;
+
+            const filtered = allOffersData.filter(offer => {
+                return (!country || offer.country === country) &&
+                       (!source || offer.source === source) &&
+                       (!type || offer.type === type) &&
+                       (!domain || offer.domain === domain);
+            });
+
+            renderOffers(filtered);
+        }
+
+        function resetFilters() {
+            document.getElementById('filterCountry').value = '';
+            document.getElementById('filterSource').value = '';
+            document.getElementById('filterType').value = '';
+            document.getElementById('filterDomain').value = '';
+            renderOffers(allOffersData);
+        }
+
+        // Affichage initial
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM ready');
+            renderOffers(allOffersData);
+        });
+    </script>
+</body>
+</html>
